@@ -8,6 +8,9 @@
     --font-color-1:#212529;
     --font-color-2: #2B2F33;
 
+    --dark-mode-color: #15171A;
+    --font-color-dark-mode: #F8F9FA;
+
     --font-size-title: clamp(1rem, 0.267rem + 2.759vw, 2.75rem);
     --font-size-subtitle: clamp(0.8rem, 0.507rem + 1.103vw, 1.5rem);
     --font-size-albums-name: clamp(0.8rem, 0.559rem + 0.906vw, 1.375rem);
@@ -26,14 +29,20 @@ body{
     padding: 0 16px;
 }
 
+.dark-mode{
+    background-color: var(--dark-mode-color);
+    color: var(--font-color-dark-mode);
+}
+
+
 header{
     width: 100%;
     height: 144px;
     display: flex;
     justify-content: center;
     background-color: #FDFEFF;
-
-
+    
+    
     position: fixed;
     top: 0;
     z-index: 1;
@@ -49,14 +58,23 @@ header{
     border-bottom: 3px solid var(--color-purple);
     font-size: var(--font-size-title);
     font-weight: 600;
-    color: var(--font-color-1);
+    
 }
 
 .header__btn{
+    background: url("/src/assets/icons/moon-icon.svg") no-repeat center;
+    background-color: var(--color-items);
     border-radius: 5px;
     border: none;
     padding: 7px 12px;
+    width: 40px;
+    height: 30px;
     cursor: pointer;
+}
+
+.darkButton{
+    background: url("/src/assets/icons/sun-icon.svg") no-repeat center;
+    background-color: var(--color-items-hover);   
 }
 
 span{
@@ -115,7 +133,7 @@ main{
 
 .generos-item:hover{
     background-color: var(--color-items-hover);
-    color: white;
+    color: var(--color-items);
     padding: 10px 12px;
     border: none;
     border-radius: 5px;
@@ -131,6 +149,36 @@ main{
     border-radius: 5px;
     cursor: pointer;
     transition: 0.5s;
+}
+
+.generosItemDark{
+    background-color: var(--color-items-hover);
+    color: var(--color-items);
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--font-size-albums-artist);
+}
+
+.generosItemDark:hover{
+    background-color: var(--color-items);
+    color: var(--color-items-hover);
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--font-size-albums-artist);
+}
+
+.generosItemDark:focus{
+    background-color: var(--color-items);
+    color: var(--color-items-hover);
+    padding: 10px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: var(--font-size-albums-artist);
 }
 
 .precos{
@@ -206,6 +254,10 @@ main{
     margin-bottom: 50px;
 }
 
+.hidden{
+    visibility: hidden;
+}
+
 .albuns__container-specific{
     height: 360px;
     width: 308px;
@@ -222,6 +274,25 @@ main{
     color: white;
     border-radius: 5px;
     transition: 0.5s;
+}
+
+.albunsDark{
+    height: 360px;
+    width: 308px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--font-color-1);
+    border-radius: 5px;
+}
+
+.albunsDark:hover{
+    height: 360px;
+    width: 308px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--font-color-dark-mode);
+    color: var(--font-color-1);
+    border-radius: 5px;
 }
 
 .albuns-name{

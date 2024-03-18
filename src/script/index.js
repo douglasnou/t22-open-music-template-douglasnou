@@ -1,11 +1,10 @@
 import {applyInputRangeStyle} from "./inputRange.js"
-import{albumList} from "./albumList.js"
-
-
+import {albumList} from "./albumList.js"
 
 const container = document.querySelector(".albuns__container")
 
-const renderAllProducts = (albuns) => {
+
+const renderAllAlbuns = (albuns) => {
     albuns.map((element) =>{
         container.insertAdjacentHTML(
             `beforeend`,
@@ -31,8 +30,88 @@ const renderAllProducts = (albuns) => {
     })
 }
 
+const preco = document.querySelector(".precos__variable");
+const priceAlbuns = albumList.map((element) =>({
+  ...element, price: parseFloat(element.price)
+}));
+const input = document.querySelector("#precos-range");
+const inputValue = parseFloat(input.value);
+
+input.addEventListener("input", (event) =>{
+  event.preventDefault()
+  preco.textContent = `R$ ${input.value}`
+
+  showAlbuns()
+});
+
+const showAlbuns = () =>{
+    
+  const filterAlbuns = albumList.filter((element)=>{
+    return Number(element.price) <= Number(input.value)
+  })
+  container.innerHTML = ''
+  renderAllAlbuns(filterAlbuns)
+  themeAnalysis()
+   console.log(filterAlbuns)
+}
+
+
+const button = document.querySelector(".header__btn");
+const body = document.body;
+const header = document.querySelector("header");
+const generosItem = document.querySelectorAll(".generos-item");
+
+
+let darkmode = false;
+let darkButton = false;
+let generosItemDark = false;
+let albunsDark = false;
+
+function darkMode(albuns) {
+
+    darkmode = !darkmode
+    darkButton = !darkButton
+    generosItemDark = !generosItemDark
+    albunsDark = !albunsDark
+
+    body.classList.toggle("dark-mode");
+    header.classList.toggle("dark-mode");
+    button.classList.toggle("darkButton");
+    generosItem.forEach((element) =>{
+      element.classList.toggle("generosItemDark");
+    });
+    albuns.forEach((element) =>{
+      element.classList.toggle("albunsDark");
+    });
+}
+
+button.addEventListener('click', () =>{
+  const albuns = document.querySelectorAll(".albuns__container-specific")
+  darkMode(albuns)
+  localStorage.setItem("theme",JSON.stringify(darkmode))
+})
+
+
+function themeAnalysis(){
+  darkmode = JSON.parse(localStorage.getItem("theme"))
+  const albuns = document.querySelectorAll(".albuns__container-specific")
+  if(darkmode){
+    body.classList.add("dark-mode")
+    header.classList.add("dark-mode")
+    button.classList.add("darkButton")
+    generosItem.forEach((element) =>{
+      element.classList.add("generosItemDark")
+    });
+    albuns.forEach((element) =>{
+      element.classList.add("albunsDark");
+    }); 
+  }
+}
+
 function routine(){
   applyInputRangeStyle()
-  renderAllProducts(albumList)
+  renderAllAlbuns(albumList)
+  themeAnalysis()
+  showAlbuns(albumList)
 }
 routine()
