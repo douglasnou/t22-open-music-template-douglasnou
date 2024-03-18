@@ -1,37 +1,37 @@
 import {applyInputRangeStyle} from "./inputRange.js"
-import {albumList} from "./albumList.js"
+import { renderAllAlbuns } from "./api.js"
+
+const url = "https://openmusic-fake-api.onrender.com/api/musics"
 
 const container = document.querySelector(".albuns__container")
+const newArray = await renderAllAlbuns(url)
 
-
-const renderAllAlbuns = (albuns) => {
-    albuns.map((element) =>{
-        container.insertAdjacentHTML(
-            `beforeend`,
-
-            `
-            <div class="albuns__container-specific">
-            <div class="albuns__container-cover">
-              <img class="albuns-cover" src=${element.img}>
-              <h4 class="albuns-name">${element.title}</h4>
-            </div>
-            <div class="albuns__container-specific-artist">
-              <p>${element.band}</p>
-              <p>${element.genre}</p>
-            </div>
-            <div class="albuns__container-specific-price">
-              <p>R$ ${element.price}</p>
-              <button class="albuns-btn">Comprar</button>
-            </div>
+  const newFunction = (elem)=>{elem.map((element) =>{
+    container.insertAdjacentHTML(
+      `beforeend`,
+      
+      `
+      <div class="albuns__container-specific">
+      <div class="albuns__container-cover">
+      <img class="albuns-cover" src=${element.img}>
+      <h4 class="albuns-name">${element.title}</h4>
+      </div>
+      <div class="albuns__container-specific-artist">
+      <p>${element.band}</p>
+      <p>${element.genre}</p>
+      </div>
+          <div class="albuns__container-specific-price">
+            <p>R$ ${element.price}</p>
+            <button class="albuns-btn">Comprar</button>
           </div>
+        </div>
 
-            `
-        )
-    })
-}
+          `
+  )})}
 
-const preco = document.querySelector(".precos__variable");
-const priceAlbuns = albumList.map((element) =>({
+      const preco = document.querySelector(".precos__variable");
+      
+const priceAlbuns = newArray.map((element) =>({
   ...element, price: parseFloat(element.price)
 }));
 const input = document.querySelector("#precos-range");
@@ -46,13 +46,13 @@ input.addEventListener("input", (event) =>{
 
 const showAlbuns = () =>{
     
-  const filterAlbuns = albumList.filter((element)=>{
+  const filterAlbuns = newArray.filter((element)=>{
     return Number(element.price) <= Number(input.value)
   })
   container.innerHTML = ''
-  renderAllAlbuns(filterAlbuns)
+  
+  newFunction(filterAlbuns)
   themeAnalysis()
-   console.log(filterAlbuns)
 }
 
 
@@ -110,8 +110,8 @@ function themeAnalysis(){
 
 function routine(){
   applyInputRangeStyle()
-  renderAllAlbuns(albumList)
+  renderAllAlbuns(url)
   themeAnalysis()
-  showAlbuns(albumList)
+  showAlbuns(url)
 }
 routine()
