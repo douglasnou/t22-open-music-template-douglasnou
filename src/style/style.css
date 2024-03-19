@@ -62,7 +62,7 @@ header{
 }
 
 .header__btn{
-    background: url("/src/assets/icons/moon-icon.svg") no-repeat center;
+    background: url("./src/assets/icons/moon-icon.svg") no-repeat center;
     background-color: var(--color-items);
     border-radius: 5px;
     border: none;
@@ -73,7 +73,7 @@ header{
 }
 
 .darkButton{
-    background: url("/src/assets/icons/sun-icon.svg") no-repeat center;
+    background: url("./src/assets/icons/sun-icon.svg") no-repeat center;
     background-color: var(--color-items-hover);   
 }
 
